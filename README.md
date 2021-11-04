@@ -1,4 +1,3 @@
-# study
-to hard
-vue.js 스터디 저장소입니다.
-모두 owner권한 드릴테니 삭제x 
+# vuejs study 저장소
+모두 owner권한 드릴테니
+신중하게 수정/삭제/생성 부탁드립니다.
