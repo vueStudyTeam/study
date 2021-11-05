@@ -1,0 +1,9 @@
+깃허브초보자 로컬연동 메뉴얼입니다. 
+따라해주시고 clone 명령어 사용시 로그인하는 부분나올건데 
+거기서 2번 링크 들어가셔서 토큰으로 로그인하는 방법 이용해주세요.
+
+1.로컬연동
+https://velog.io/@may-verde/%EA%B9%83%ED%97%88%EB%B8%8C%EC%97%90-%EB%A1%9C%EC%BB%AC-%ED%8F%B4%EB%8D%94-%EC%97%B0%EA%B2%B0%ED%95%98%EA%B8%B0clone#%EA%B9%83-%EC%9C%84%ED%82%A4-%EC%B0%B8%EA%B3%A0
+
+2.토큰로그인요령
+https://naknaklee.github.io/etc/2021/08/15/github-personal-access-token/
