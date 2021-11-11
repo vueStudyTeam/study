@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <title>Vue Instance Lifecycle</title>
+</head>
+
+<body>
+    <div id="app">
+        {{massage}}
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
+    <script>
+        new Vue({
+            el: '#app',
+            data: {
+                massage: 'hey Vue!'
+            },
+            beforeCreate: function () {
+                console.log("beforeCreate");
+            },
+            create: function () {
+                console.log("create");
+            },
+            mounted: function () {
+                console.log("mounted");
+                this.massage = 'hello vue!';
+            },
+            updated: function () {
+                console.log("updated");
+            }
+
+        })
+    </script>
+
+</body>
+
+</html>

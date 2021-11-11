@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <title> Vue Component Registration </title>
+</head>
+
+<body>
+  <div id="app">
+
+    {{ message }}
+
+    <my-com></my-com>
+
+    <my-local-com></my-local-com>
+
+    <button>{{value}}</button>
+
+  </div>
+  <br>
+  <hr>
+  <br>
+  <div id="app2">
+
+    {{ message }}
+
+    <my-com></my-com>
+
+    <my-local-com></my-local-com>
+
+    <button>{{value}}</button>
+
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
+  <script type="text/javascript">
+
+    Vue.component('my-com', {
+      template: '<h2>global component test!</h2>'
+    });
+
+    var cmp = {
+      template: '<h2>local component test!</h2>'
+    };
+
+    new Vue({
+      el: '#app',
+      data: {
+        message: 'Hello Vue.js!!',
+        value: 'click me!'
+      },
+      components: {
+        'my-local-com': cmp
+      }
+    });
+
+    new Vue({
+      el: '#app2',
+      data: {
+        message: 'Hello Vue.js!!',
+        value: 'click me!'
+      }
+    });
+
+    // Vue.config.devtools = true;
+  </script>
+</body>
+
+</html>

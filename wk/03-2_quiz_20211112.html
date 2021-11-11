@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+
+<head>
+  <meta charset="UTF-8">
+  <title> Vue quiz chapter 03-2 1&2 </title>
+</head>
+
+<body>
+  <div id="app">
+    <header>
+      <h2>{{message}}</h2>
+    </header>
+
+    <todo-footer></todo-footer>
+    <todo-list></todo-list>
+  </div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
+  <script type="text/javascript">
+
+    Vue.component('todo-footer', {
+      template: '<p>This is another global child component</p>'
+    });
+
+    var tl = {
+      template: '<p>This is another local child component</p>'
+    };
+
+    var app = new Vue({
+      el: '#app',
+      data: {
+        message: 'this is a parent componet'
+      },
+      components: {
+        'todo-list': tl
+      }
+    });
+
+
+    Vue.config.devtools = true;
+  </script>
+</body>
+
+</html>
