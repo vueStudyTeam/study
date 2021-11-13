@@ -20,11 +20,13 @@
             beforeCreate: function () {
                 console.log("beforeCreate");
             },
+            //이거 왜안뜸..?
             create: function () {
                 console.log("create");
             },
             mounted: function () {
                 console.log("mounted");
+                //script상에서 데이터 수정이 있었기때문에 update가 실행됨. 선세팅 후 업데이트. 없을경우 업데이트x
                 this.massage = 'hello vue!';
             },
             updated: function () {
