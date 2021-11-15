@@ -18,33 +18,11 @@
                 },
                 methods: {
                     destroy: function () {
-                        console.log("test", this.message);
-                        this.message = "destroy function called";
                         this.$destroy();
+                        this.message= "1";
+                        console.log(this.message);
                         // destroy 이후에도 로그는 찍히는데 updated 등은 실행되지 않음
-                        this.message = "destroy function finished" + new Date();
-                        console.log("final", this.message);
                     }
-                },
-                beforeCreate : function () {
-                    // 아직 message 값 없음
-                    console.log("before create", this.message);
-                },
-                created: function () {
-                    // 최초 정의된 message 값과 동일
-                    console.log("created", this.message);
-                },
-                mounted: function () {
-                    // 최초 정의된 message 값과 동일
-                    console.log("mounted", this.message);
-                    // message 값 확인 후 변경
-                    this.message = "lifecycle app";
-                },
-                beforeUpdate: function () {
-                    // mounted 함수에서 변경한 값
-                    console.log("before updated", this.message);
-                    // message 값 확인 후 변경
-                    this.message = "LifeCycle App";
                 },
                 updated: function () {
                     // beforeUpdate 함수에서 변경한 값
@@ -53,17 +31,24 @@
                     // updated 내에서 또 data 업데이트가 일어나므로, before updated와 updated 순서대로 계속 호출됨
                     // this.message = "lIFEcYCLE aPP";
                 },
+                beforeUpdate: function () {
+                    // mounted 함수에서 변경한 값
+                    // message 값 확인 후 변경
+                    var msg = this.message
+                    this.message = msg.toLowerCase();
+                    console.log("before updated", this.message);
+                },
                 beforeDestroy: function () {
+                    // this.message = "empty app";
                     console.log("before destroyed", this.message);
-                    this.message = "empty app";
                 },
                 destroyed: function () {
+                    // this.message = "Empty App";
                     console.log("destroyed", this.message);
                     // 여기서도 message 변경 시 마지막 updated에 변경된 값이 들어감 - ??
                     // 마지막 updated 로그가 찍히는 건 app destroy 때문에 찍히는 것 같기도 하고..
                     // 그런데 여기서 이미 this.message에 접근이 안 되어야 하는 것 아닌지?
                     // 그리고 beforeUpdate는 왜 마지막에 실행되지 않은 것인지?
-                    this.message = "Empty App";
                 }
             });
         </script>
