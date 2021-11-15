@@ -1,0 +1,84 @@
+<html>
+    <head>
+        <title>Vue Instance LifeCycle Sample</title>
+    </head>
+    <body>
+        <div id="life-cycle-app">
+            {{ message }}
+            <button id="destroyer" @click="destroy" type="button">Destroy</button>
+            <button id="destroyer2" @click="testFn" type="button">testFn</button>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+        
+        <script>
+            const app = new Vue({
+                el: '#life-cycle-app',
+                data: {
+                    message: 'LIFECYCLE APP',
+                    message2: 'test message'
+                },
+                methods: {
+                    destroy: function () {
+                        this.message = "destroy function called 123";
+
+                        this.testFn();
+                        this.$destroy();
+                        // destroy 이후에도 로그는 찍히는데 updated 등은 실행되지 않음
+
+                        //한 메서드가 끝나고 마지막 수정 부분에 대해서 라이프 사이클 먹음. (각 데이터 변환점에서 실행되지 않음)
+                        this.message = "destroy function finished" + new Date();
+                        this.message2 = "test2";
+                        console.log("final", this.message);
+                    },
+                    testFn: function(){
+                        console.log('log :; ',this.message, this.message2);
+                    }
+                },
+                beforeCreate : function () {
+                    // 아직 message 값 없음
+                    console.log("before create", this.message);
+                },
+                created: function () {
+                    // 최초 정의된 message 값과 동일
+                    console.log("created", this.message);
+                },
+                mounted: function () {
+                    // 최초 정의된 message 값과 동일
+                    console.log("mounted", this.message);
+                    // message 값 확인 후 변경
+                    this.message = "lifecycle app";
+                },
+                beforeUpdate: function () {
+                    // mounted 함수에서 변경한 값
+                    console.log("before updated", this.message);
+                    console.log("before updated2", this.message2);
+                    // message 값 확인 후 변경
+                    this.message = "LifeCycle App";
+                },
+                updated: function () {
+                    // beforeUpdate 함수에서 변경한 값
+                    console.log("updated", this.message);
+                    // message 값 확인 후 변경 -> 시도 시 무한 반복 
+                    // updated 내에서 또 data 업데이트가 일어나므로, before updated와 updated 순서대로 계속 호출됨
+                    // this.message = "lIFEcYCLE aPP";
+                },
+                beforeDestroy: function () {
+                    console.log("before destroyed", this.message);
+                    // this.message = "empty app";
+                },
+                destroyed: function () {
+                    console.log("destroyed", this.message);
+                    // 여기서도 message 변경 시 마지막 updated에 변경된 값이 들어감 - ??
+                    // 마지막 updated 로그가 찍히는 건 app destroy 때문에 찍히는 것 같기도 하고..
+                    // 그런데 여기서 이미 this.message에 접근이 안 되어야 하는 것 아닌지?
+                    // 검색해본 바로는 아마(일반)메서드와 data에는 접근 가능. 아마도 뷰 인스턴스에서 사용 가능한 @click v-if 같은 기능 같은 뷰 기능에 대해 정의되있는 뷰 인스턴스가 없어지고.. 
+                    // 일반적인 스크립트로서 펑션과 객체는 남는듯.. 더 디테일한 부분은 테스트 필요.
+
+                    // 그리고 beforeUpdate는 왜 마지막에 실행되지 않은 것인지?
+                    this.message = "Empty App";
+                }
+            });
+        </script>
+    </body>
+</html>
