@@ -1,0 +1,6 @@
+1. vue 라이프사이클 훅에서 이해가 되지 않는 부분
+    (1) destroyed 함수에서 data 변경 시 -> 마지막에 updated 실행됨
+        - 여기서는 또 beforeUpdate가 실행되지 않음
+    (2) $destroy() 함수로 app을 제거했을 때도 뭔가 완전히 잘 지워진 것 같지가 않다.
+        - destroy 메소드 내에서 $destroy() 이후에도 this.message에 대한 수정 및 접근이 됨
+        - $destroy() 이후에는 updated, beforeUpdate 등은 호출이 안 되는 것으로 보임

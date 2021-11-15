@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <title> Vue quiz chapter 03-3 1~3 </title>
+</head>
+
+<body>
+    <div id="app">
+        <sibling-component v-bind:propsdata="[message,msg]"></sibling-component>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.6.0"></script>
+    <script type="text/javascript">
+        
+        //순서가 바뀌면 왜안될까요?
+        Vue.component('sibling-component', {
+            props: ['propsdata'],
+            template: '<p>{{propsdata}}</p>'
+        });
+
+        new Vue({
+            el: '#app',
+            data: {
+                message: 'Hello Vue! passed from Parent Component',
+                msg: 'another Message'
+            }
+        })
+
+
+    // Vue.config.devtools = true;
+    </script>
+</body>
+
+</html>
