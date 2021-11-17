@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <title> Vue Router Sample</title>
+</head>
+
+<body>
+    <div id="app">
+        <h1>뷰 라우터 예제</h1>
+        <p>
+            <router-link to="/main">Main 컴포넌트로 이동</router-link>
+            <router-link to="/login">login 컴포넌트로 이동</router-link>
+            <br>
+            <br>
+            -- test A tag
+            <br>
+            <br>
+            <!--<a>에서 파일명#/url로 접근가능 -> router-view에 뿌려진다 -->
+            <a href="04-1_exam_20211118.html#/main">a tag 메인페이지</a>
+            <a href="04-1_exam_20211118.html#/login">a tag 로그인페이지</a>
+            <br>
+            <hr>
+            <br>
+            *router-view 영역
+            <br>
+            -----------------------------------
+        </p>
+        <router-view></router-view>
+        <br>
+            -----------------------------------
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router@3.0.1/dist/vue-router.js"></script>
+    <script type="text/javascript">
+        //컴포넌트 정의
+        var Main = { template: '<div>main페이지입니다</div>' }
+        var Login = { template: '<div>login페이지입니다</div>' }
+        //url path에 만들어놓은 컴포넌트 매칭
+        var routes = [
+            { path: '/main', component: Main },
+            { path: '/login', component: Login }
+
+        ];
+        //라우터 셋팅 
+        var router = new VueRouter({
+            
+            /* 히스토리 옵션 사용시 a태그만 사용할경우 파일명#/url로 접근가능 
+            하지만, router-link 컴포넌트 사용시 
+                    1) 컴포넌트 먼저누르고 a태그를 눌렀을 경우 링크가 바껴서 매칭이 끊어진다.
+                    2)a 태그의 url을 /main 같이 작성 할 경우에는 아예 작동안한다.
+            */ 
+
+            // mode: 'history', 
+            routes
+        });
+        //뷰 인스턴스에 라우터 추가 .$mount()
+        var app = new Vue({
+            router
+        }).$mount('#app');
+    // Vue.config.devtools = true;
+
+    /*
+    컴포넌트 정의(html) -> url에 매칭 -> 라우터 인스턴스 초기화 및 매칭된 정보 등록 -> 뷰인스턴스 생성 및 라우터 추가 후 $mount() 
+    */
+    </script>
+</body>
+
+</html>
