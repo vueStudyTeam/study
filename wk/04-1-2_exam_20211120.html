@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <title> Vue Nested Router</title>
+</head>
+
+<body>
+    <div id="app">
+        <router-view></router-view>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router@3.0.1/dist/vue-router.js"></script>
+    <script type="text/javascript">
+
+        var User = {
+            // 여기서 <router-view>는 children view
+            template: '<div> UserView <router-view> </router-view> </div>'
+        };
+
+        var UserProfile = { template: '<p>User Profile Component</p>' };
+        var UserPost = { template: '<p>User Post Component</p>' };
+
+        var routes = [
+            {
+                path: '/user',
+                component: User,
+                children: [
+                    {
+                        // 여기서 path에 '/(root)'를 넣고 실행하면 ~/user/posts 가아닌 ~/posts 로 접근가능
+                        path: 'posts',
+                        component: UserPost
+                    },
+                    {
+                        path: 'profile',
+                        component: UserProfile
+                    }
+                ]
+            }
+        ];
+
+        var router = new VueRouter({
+            routes
+        });
+
+        var app = new Vue({
+            router
+        }).$mount('#app');
+
+    </script>
+</body>
+
+</html>

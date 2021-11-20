@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <title> 04-1 quiz 1~3 </title>
+</head>
+
+<body>
+    <div id="app">
+        <router-view name="header"></router-view>
+        <router-view></router-view>
+        <router-view name="footer"></router-view>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+    <script src="https://unpkg.com/vue-router@3.0.1/dist/vue-router.js"></script>
+    <script type="text/javascript">
+
+        var Body = { template: '<div>This is Body</div>' };
+        var Header = { template: '<div>This is Header</div>' };
+        var Footer = { template: '<div>This is Footer</div>' };
+
+        var LoginBody = { template: '<div>This is LoginBody</div>' };
+        var LoginHeader = { template: '<div>This is LoginHeader</div>' };
+        var LoginFooter = { template: '<div>This is LoginFooter</div>' };
+
+        //name에 컴포넌트만 바꿔서 한번에 여러개를 등록할수있다. 
+
+        var router = new VueRouter({
+            routes: [
+                {
+                    path: '/',
+                    components: {
+                        default: Body,
+                        header: Header,
+                        footer: Footer
+                    }
+                },
+
+                {
+                    path: '/login',
+                    components: {
+                        default: LoginBody,
+                        header: LoginHeader,
+                        footer: LoginFooter
+                    }
+                }
+            ]
+        })
+
+
+        var app = new Vue({
+            router
+        }).$mount('#app');
+
+    </script>
+</body>
+
+</html>

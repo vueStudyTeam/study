@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+
+<head>
+    <meta charset="UTF-8">
+    <title> Vue resource for data response test </title>
+</head>
+
+<body>
+    <div id="app">
+       <button v-on:click="getData">프레임워크 목록 가져오기</button>
+    </div>
+
+
+    <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue-resource@1.3.4"></script>
+    <script type="text/javascript">
+
+        new Vue({
+            el: '#app',
+            methods:{
+                getData: function(){
+                    // 형식 this.$http.get(url).then(function(response){ function definition }) 이런식으로 .. 이것조차 너무간단한.. ㅠㅠ
+                    this.$http.get("https://raw.githubusercontent.com/joshua1988/doit-vuejs/master/data/demo.json")
+                    .then(function (response) {
+                        console.log(response);
+                        //json 형식으로 parse해서 받아야 사용하기 쉬워짐.
+                        console.log(JSON.parse(response.data));
+                    });
+                    /*
+                    Arrow 함수로 정의 가능
+                    .then(res => {
+                        console.log(res);
+                    });
+                    
+                    */
+                }
+            }
+        });
+
+    </script>
+</body>
+
+</html>
