@@ -1,0 +1,32 @@
+Vue.js 공식 문서에서 발췌
+    https://vuejs.org/2016/02/06/common-gotchas/#Why-does-data-need-to-be-a-function
+
+Why does data need to be a function?
+    In the basic examples, we declare the data directly as a plain object. 
+    This is because we are creating only a single instance with new Vue(). 
+    However, when defining a component, data must be declared as a function that returns the initial data object. 
+    Why? Because there will be many instances created using the same definition. 
+    If we still use a plain object for data, that same object will be shared by reference across all instance created! 
+    By providing a data function, every time a new instance is created we can call it to return a fresh copy of the initial data.
+
+    Further reading: Component Option Caveats.
+
+왜 'data'는 함수가 되어야 하는가?
+    기초 예시에서, 우리는 data를 평범한 객체로 직접 선언한다.
+    이것은 우리가 new Vue()를 사용하여 단일 객체만을 만들었기 때문이다.
+    그러나, 컴포넌트를 정의할 때, data는 반드시 최초의 data 객체를 반환하는 함수로서 선언되어야 한다.
+    왜냐? 동일한 정의를 사용하여 생성되는 많은 객체들이 존재할 것이기 때문이다.
+    만약 우리가 data에 대해 평범한 객체를 사용한다면, 생성된 모든 객체에서 동일한 객체(data)가 참조값으로 공유될 것이다!
+    data를 함수로 제공함으로써, 신규 객체가 생성될 때마다 우리는 그 함수를 호출하여 최초의 data에 대한 새 복제품을 반환받을 수 있다.
+
+** new Vue()로 만들어진 Vue 객체는 오로지 하나 -> data가 함수형이 아니어도 괜찮음
+
+** Vue 객체 내에 정의된 컴포넌트는 객체가 아니라 선언일 뿐이고, 화면 내에서 "<my-component></my-component>"와 같이 사용되면 그 때마다 신규 객체를 생성함
+** Vue 객체 내에 선언된 컴포넌트는 여러 번 재사용되어 다양한 객체를 형성할 수 있음
+
+** 컴포넌트 객체가 여러 개 생성된 경우, data가 객체형이라면 각 컴포넌트에서 동일한 data 객체에 대한 참조값을 갖게 되어 data가 모두 공통으로 사용될 것
+*** 컴포넌트 A의 인스턴스 a, b, c가 있다면, a에서 data 조작 시 b, c에서도 동일하게 값이 변경될 것
+
+** 그래서 data를 함수형으로 만들고, 각 컴포넌트에서는 각자 data 함수를 호출하여 반환받은 객체를 data로서 사용
+** 최초 생성 시 갖는 data의 형태는 함수에서 동일한 값을 가진 객체를 반환해주므로 동일하지만, 각자 data 객체를 조작했을 때 서로 간의 간섭이 일어나지 않게 됨
+*** 인스턴스 a에서 data 값을 조작해도 b, c에서는 값이 변경되지 않음
