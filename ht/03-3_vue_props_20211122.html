@@ -1,0 +1,63 @@
+<html>
+    <head>
+        <meta charset="utf-8">
+        <title>Vue Sample</title>
+    </head>
+    <body>
+        <div id="app">
+            <child-component v-bind:propsdata="message" v-on:change-text="changeText(test)"></child-component>
+            {{message}}
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+        <script>
+            var eventBus = new Vue();
+
+            Vue.component('child-component',{
+                props: ['propsdata'],
+                template: '<div><p>{{propsdata}}</p><br/><button v-on:click="showLog">버튼</button></div>',
+                methods:{
+                    showLog:function(){
+                       // console.log('this ',this);
+                        //this.$emit('change-text','testtest')
+                        //eventBus.$emit('triggerEventBus', 100);
+                    }
+                },
+                created:function(){
+                    //전역변수로 vue인스턴스 생성 후 trigger evnet걸듯이 사용하는 방법인듯.. $on 메서드가 선수로 등록되어야 하고,
+                    //첫번째 인자로 받은 값이 키값으로 매핑되어 $emit메서드 호출 시 동작하는 방식.
+
+                    //쓰려면 제일 상위에 선언되어야 할듯 하다.
+                    eventBus.$on('triggerEventBus',function(value){
+                        console.log('child로 전달 받은 값 :: ',value);
+                    })
+                    console.log(eventBus);
+                    console.log(this);
+                    this.$parent.$on('thisVueObject',function(value){
+                        console.log('새로운 객체를 생성하지 않고 전달하는 값 :: ',value);
+                    })
+                }
+            });
+
+
+            new Vue({
+                el: '#app',
+                data: {
+                    message:'Hello vue.js'
+                },
+                methods:{
+                    changeText:function(test){
+                        this.message = test 
+                    }
+                },
+                created: function(){
+                    
+                },
+                mounted:function(){
+                    //v-on도 결국은 $on 트리거의 일종인듯하다.
+                    this.$emit('thisVueObject',300);
+                    eventBus.$emit('triggerEventBus', 100)
+                }
+            });
+        </script>
+    </body>
+</html>

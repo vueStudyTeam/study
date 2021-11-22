@@ -1,0 +1,99 @@
+<html>
+    <head>
+        <title>Vue Sample</title>
+    </head>
+    <body>
+        <div id='app'>
+            <my-component1></my-component1>
+            <my-component2></my-component2>
+            <my-component3></my-component3>
+            <my-component3></my-component3>
+            <my-component4></my-component4>
+            <my-component4></my-component4>
+            <my-component5></my-component5>
+        </div>
+        <script src="https://cdn.jsdelivr.net/npm/vue@2.5.2/dist/vue.js"></script>
+        <script>
+            var cmp1 = {
+                template:'<div>지역 컴포넌트 1 : {{cmp1Data}}</div>',
+                data: function(){
+                    return {
+                        cmp1Data: 100
+                    }
+                }
+            }
+
+            var cmp2 = {
+                template:'<div>지역 컴포넌트 2 : {{cmp2Data}}</div>',
+                data: function() {
+                    console.log('cmp1 data :: ',cmp1,cmp1.data);
+                    console.log('cmp1 data2 :: ',cmp1.data().cmp1Data); // 100을 가져올 수 있다. data가 function의 형태로 리턴되기에 값을 못받는것이지 접근이 안되는것은 아니었음. 그냥 예시가 좀 잘못된듯
+                    return {
+                        cmp2Data : cmp1.data().cmp1Data
+                    }
+                }
+            }
+
+            var data = {cmp3Data:'test text'};
+            var cmp3 = {
+                template: '<div><button v-on:click="changeText">버튼</button> <br/> <div>지역 컴포넌트 3 : {{cmp3Data}}</div></div>',
+                methods: {
+                    changeText: function(){
+                        data.cmp3Data = 'changed value'
+                    }
+                },
+                //data 객체가 밖에 있어서 컴포넌트가 생성될때마다 새로운 데이터 객체가 아님
+                //이것도 그렇게 좋은 예시는 아닌듯 하지만.. 
+                // 대충 정리해보자면
+                // 하나의 new 생성자로 만들어진 Vue에서 동일한 컴포넌트를 참조할 때 (여러개의 컴포넌트를 만들때)
+                // data 속성을 그냥 객체를 정의해놓으면 하나의 data 객체를 바라봐서 재사용 하기 힘들다. 
+                // 그래서 function에 객체를 리턴시켜 컴포넌트 호출 시 마다(data의 function이 실행되어 새로운 data객체 생성.) 하기 위해 function으로 강제해놓은듯.
+                data: function(){
+                        return data
+                    }
+            }
+
+            var cmp4 = {
+                template: '<div><button v-on:click="changeText">버튼</button> <br/> <div>지역 컴포넌트 4 : {{cmp4Data}}</div></div>',
+                methods: {
+                    changeText: function(){
+                       console.log('text :; ',this);
+                        this.cmp4Data = 'changed value'
+                    }
+                },
+                data: function(){
+                       // console.log(testValue);
+                        return {
+                            cmp4Data : 'data'
+                        }
+                    }
+            }
+            
+            var cmp5 = {
+                template: '<div><button v-on:click="changeText">버튼</button></div>',
+                methods: {
+                    changeText: function(){
+                        console.log('text :; ',this);
+                    }
+                },
+                data: {
+                    cmp5Data : 'cmp5 data value'
+                }
+            }
+
+            new Vue({
+                el: '#app',
+                components:{
+                    'my-component1' : cmp1,
+                    'my-component2' : cmp2,
+                    'my-component3' : cmp3,
+                    'my-component4' : cmp4,
+                    'my-component5' : cmp5,
+                },
+                beforeMount(){
+                    //debugger;
+                }
+            });
+        </script>
+    </body>
+</html>
