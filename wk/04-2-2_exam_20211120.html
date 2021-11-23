@@ -19,7 +19,9 @@
             el: '#app',
             methods:{
 
-                // axios 사용시 response data 자체가 json형식으로 들어와서 사용하기 쉬워짐.
+                /* axios 사용시 response data 자체가 json형식으로 들어와서 사용하기 쉬워짐.  조금더 간단함.
+                   옵션으로 통신방식 을 선택하던지 사슬함수로 axios.get 이나 axios.post 로 통신방식을 고를수 있다.
+                */
                 getData: function(){
                     axios.get('https://raw.githubusercontent.com/joshua1988/doit-vuejs/master/data/demo.json')
                     .then(function(response){
