@@ -11,4 +11,5 @@ commit시 -m 옵션 사용하여 각자 이름, yy-mm-dd + comment로 통일부�
 각자의 폴더안에서 신중하게 commit 부탁드립니다.  
   
 급한질문은 단톡방 이용해주세요. 친절하게(?)답변해드립니다.  
-
+  
+vuejs guide url : https://kr.vuejs.org/v2/guide/ 
