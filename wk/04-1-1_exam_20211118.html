@@ -19,6 +19,9 @@
             <!--<a>에서 파일명#/url로 접근가능 -> router-view에 뿌려진다 -->
             <a href="04-1-1_exam_20211118.html#/main">a tag 메인페이지</a>
             <a href="04-1-1_exam_20211118.html#/login">a tag 로그인페이지</a>
+            <!-- history test -->
+            <!-- <a href="/main">a tag 메인페이지</a>
+            <a href="/login">a tag 로그인페이지</a> -->
             <br>
             <hr>
             <br>
@@ -53,7 +56,7 @@
                     2)a 태그의 url을 /main 같이 작성 할 경우에는 아예 작동안한다.
             */ 
 
-            // mode: 'history', 
+            mode: 'history', 
             routes
         });
         //뷰 인스턴스에 라우터 추가 .$mount()

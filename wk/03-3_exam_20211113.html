@@ -43,11 +43,11 @@
         };
 
         var cmp2 = {
-            template: '<div>첫 번째 지역 컴포넌트 :{{cmp2Data}}<div>',
+            template: '<div>두 번째 지역 컴포넌트 :{{cmp2Data}}<div>',
             data: function () {
                 return {
                     //다른지역 <cmp1>의 데이터를 가져올수 없다. 결과값 : none
-                    cmp2Data: cmp1.data.cmp1Data
+                    cmp2Data: cmp1.data().cmp1Data
                 }
             }
         };
