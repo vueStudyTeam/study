@@ -1,0 +1,19 @@
+Vetur - Pine Wu
+vue.js 코드 문법강조, 자동완성, 디버깅, Lint 등 지원
+
+Vue 2 Snippets
+vue.js 컴포넌트 속성 지원 및 자동완성 지원
+
+Vue Peek
+컴포넌트 추적
+
+esLint 
+스크립트 코드 문제점 파악
+
+
+npm 버전이 낮아서 에러가 나는 문제..
+npm install -g npm@latest
+
+cross-env
+환경변수 관리해주는 프로그램 설치 필요
+https://velog.io/@public_danuel/process-env-on-node-js
