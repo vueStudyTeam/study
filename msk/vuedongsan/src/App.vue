@@ -1,53 +1,35 @@
 <template>
   <div class="app">
-
-    <div class="black-bg" v-if="isModalOpen">
-      <div class="white-bg">
-        <h4>상세 페이지</h4>
-        <p>상세 페이지 내용</p>
-        <button @click="toggleModalStatus">닫기</button>
-      </div>
-    </div>
-
+    <Modal/>
+    
     <div class="menu">
       <a v-for="title in menu" :key="title">{{title}}</a>
     </div>
 
+    <Discount/>
+
     <div v-for="(product, index) in products" :key="product">
-        <img class="room-img" :src="require('./assets/room' + index + '.jpg')">
-        <h4 @click="toggleModalStatus">{{index + 1}}. {{product.name}}</h4>
-        <p>{{product.price}} 만원</p>
-        <button @click="report(index)">허위 매물 신고</button> <span>신고수 : {{product.reportCount}}</span>
+        <img class="room-img" :src="product.image">
+        <h4 @click="toggleModalStatus(index)">{{product.id + 1}}. {{product.title}}</h4>
+        <p>{{product.price}} 원</p>
+        <p>신고수 : {{product.reportCount}}</p>
     </div>
   </div>
 
 </template>
 
 <script>
+import products from "./data/oneroom";
+import Discount from "./components/Discount.vue";
 
 export default {
   name: 'App',
   data() {
     return {
       isModalOpen: false,
+      modalProduct: {},
       menu : ['Home', 'Shop', 'About'],
-      products : [
-        {
-          name : "역삼동원룸",
-          price : 50,
-          reportCount: 0
-        },
-        {
-          name : "천호동원룸",
-          price : 60,
-          reportCount: 0
-        },
-        {
-          name : "마포구원룸",
-          price : 70,
-          reportCount: 0
-        }
-      ]
+      products : products.map(product => ({...product, reportCount: 0}))
     }
   },
   methods: {
@@ -55,13 +37,19 @@ export default {
       var product = this.products[index];
       product.reportCount++;
     },
-    toggleModalStatus() {
+    toggleModalStatus(index) {
       var modalStatus = this.isModalOpen;
       this.isModalOpen = !modalStatus;
+      if (index >= 0) {
+        this.modalProduct = this.products[index];
+      } else {
+        this.modalProduct = {};
+      }
     }
   },
   components: {
-  }
+    Discount
+}
 }
 </script>
 
@@ -88,20 +76,5 @@ export default {
   .room-img {
     width: 100%;
     margin-top: 40px;
-  }
-
-  .black-bg {
-    width: 100%; 
-    height: 100%;
-    background: rgba(0,0,0,0.5);
-    position: fixed;
-    padding: 20px;
-  }
-
-  .white-bg {
-    width: 90%; 
-    background: white;
-    border-radius: 8px;
-    padding: 20px;
   }
 </style>
