@@ -1,6 +1,9 @@
 <template>
   <div class="app">
-    <Modal/>
+    <Modal 
+      :modalProduct="modalProduct" 
+      :isModalOpen="isModalOpen"
+      @toggleModalStatus="toggleModalStatus"/>
     
     <div class="menu">
       <a v-for="title in menu" :key="title">{{title}}</a>
@@ -8,12 +11,10 @@
 
     <Discount/>
 
-    <div v-for="(product, index) in products" :key="product">
-        <img class="room-img" :src="product.image">
-        <h4 @click="toggleModalStatus(index)">{{product.id + 1}}. {{product.title}}</h4>
-        <p>{{product.price}} 원</p>
-        <p>신고수 : {{product.reportCount}}</p>
-    </div>
+    <Card v-for="(product, index) in products" :key="product"
+      :product="product"
+      :index="index"
+      @toggleModalStatus="toggleModalStatus"/> 
   </div>
 
 </template>
@@ -21,6 +22,8 @@
 <script>
 import products from "./data/oneroom";
 import Discount from "./components/Discount.vue";
+import Modal from "./components/Modal.vue";
+import Card from "./components/Card.vue";
 
 export default {
   name: 'App',
@@ -33,10 +36,6 @@ export default {
     }
   },
   methods: {
-    report(index) {
-      var product = this.products[index];
-      product.reportCount++;
-    },
     toggleModalStatus(index) {
       var modalStatus = this.isModalOpen;
       this.isModalOpen = !modalStatus;
@@ -48,7 +47,9 @@ export default {
     }
   },
   components: {
-    Discount
+    Discount,
+    Modal,
+    Card
 }
 }
 </script>

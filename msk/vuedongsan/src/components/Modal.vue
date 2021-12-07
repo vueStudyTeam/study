@@ -5,7 +5,7 @@
             <p>{{modalProduct.price}} 원</p>
             <img class="modal-img" :src="modalProduct.image">
             <p>{{ modalProduct.content }}</p>
-            <button class="modal-button" @click="report(modalProduct.id)">허위 매물 신고</button><button class="modal-button" @click="toggleModalStatus">닫기</button>
+            <button class="modal-button" @click="report()">허위 매물 신고</button><button class="modal-button" @click="toggleModalStatus">닫기</button>
         </div>
     </div>
 </template>
@@ -13,8 +13,17 @@
 <script>
 export default {
     name: 'Modal',
-    data() {
-        return {
+    props: {
+        modalProduct : Object,
+        isModalOpen : Boolean
+    },
+    methods: {
+        report() {
+            var modalProduct = this.modalProduct;
+            modalProduct.reportCount++;
+        },
+        toggleModalStatus() {
+            this.$emit("toggleModalStatus");
         }
     }
 }
