@@ -8,10 +8,10 @@
     <div class="collapse navbar-collapse" id="navbarNav">
       <ul class="navbar-nav">
         <li class="nav-item">
-          <a class="nav-link active" aria-current="page" href="#">Home</a>
+          <router-link to="/home"><a class="nav-link active" aria-current="page" href="#">Home</a></router-link>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Features</a>
+          <router-link to="/list"><a class="nav-link" href="#">List</a></router-link>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">Pricing</a>
@@ -23,16 +23,14 @@
     </div>
   </div>
 </nav>
-
-<div class = "container mt-4">
-  <h5>Brucee 의 블로그</h5>
-<p> - Making By Vue - </p>
+<div class="mt-4">
+<router-view :블로그글 ="블로그글"></router-view>
+<!-- <List :블로그글 ="블로그글"/> -->
 </div>
-<List :블로그글 ="블로그글"/>
 </template>
 
 <script>
-import List from './components/List.vue';
+// import List from './components/List.vue';
 import blog from './assets/blog.js';
 
 export default {
@@ -43,7 +41,7 @@ export default {
     }
   },
   components: {
-    List: List
+    // List: List
     
   }
 }
