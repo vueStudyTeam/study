@@ -9,8 +9,17 @@
         name: 'Discount',
         data() {
             return {
-                discountRate: 20
+                discountRate: 30
             }
+        },
+        mounted() {
+            var timer = setInterval(() => {
+                this.discountRate--;
+
+                if (this.discountRate == 0) {
+                    clearInterval(timer);
+                }
+            }, 1000);
         }
     }
 </script>

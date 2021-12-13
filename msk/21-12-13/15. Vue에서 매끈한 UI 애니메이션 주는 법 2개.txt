@@ -1,0 +1,18 @@
+15. Vue에서 매끈한 UI 애니메이션 주는 법 2개
+
+    1) 쌩 css로 애니메이션 주기
+        - 클래스명 조건부로 집어넣기
+            - :class ="{ 클래스명 : 조건 }"
+
+    2) transition 태그 사용
+        - Vue에서 제공하는 태그
+        - 애니메이션이 필요한 요소를 <transition name="변수명"></transition> 태그로 감싸기
+
+        1) 등장 애니메이션
+            - style 태그 내에서 3개의 클래스명 작성
+            - .변수명-enter-from { 시작 시 스타일 }
+            - .변수명-enter-active { transition: all 시간; }
+            - .변수명-enter-to { 종료 시 스타일 }
+
+        2) 퇴장 애니메이션
+            - style 클래스명 enter -> leave 변경

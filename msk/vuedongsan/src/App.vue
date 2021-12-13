@@ -1,15 +1,20 @@
 <template>
   <div class="app">
-    <Modal 
-      :modalProduct="modalProduct" 
-      :isModalOpen="isModalOpen"
-      @toggleModalStatus="toggleModalStatus"/>
+    <transition name="modal-action">
+      <Modal 
+        :modalProduct="modalProduct" 
+        :isModalOpen="isModalOpen"
+        @toggleModalStatus="toggleModalStatus"/>
+    </transition>
     
     <div class="menu">
       <a v-for="title in menu" :key="title">{{title}}</a>
     </div>
 
     <Discount/>
+
+    <button @click="priceSort">가격순정렬</button>
+    <button @click="sortBack">되돌리기</button>
 
     <Card v-for="(product, index) in products" :key="product"
       :product="product"
@@ -44,13 +49,21 @@ export default {
       } else {
         this.modalProduct = {};
       }
+    },
+    priceSort() {
+      this.products.sort(function(a, b) {
+        return a.price - b.price;
+      });
+    },
+    sortBack() {
+      this.products = products.map(product => ({...product, reportCount: 0}));
     }
   },
   components: {
     Discount,
     Modal,
     Card
-}
+  }
 }
 </script>
 
@@ -77,5 +90,29 @@ export default {
   .room-img {
     width: 100%;
     margin-top: 40px;
+  }
+
+  .modal-action-enter-from {
+    opacity: 0;
+  }
+
+  .modal-action-enter-active {
+    transition: all 1s;
+  }
+
+  .modal-action-enter-to {
+    opacity: 1;
+  }
+
+  .modal-action-leave-from {
+    transform: translateY(0px);
+  }
+
+  .modal-action-leave-active {
+    transition: all 1s;
+  }
+
+  .modal-action-leave-to {
+    transform: translateY(-1000px);
   }
 </style>
