@@ -1,4 +1,4 @@
-# vlog
+# blog
 
 ## Project setup
 ```
