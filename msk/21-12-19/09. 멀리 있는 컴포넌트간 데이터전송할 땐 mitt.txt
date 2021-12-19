@@ -1,0 +1,25 @@
+09. 멀리 있는 컴포넌트간 데이터전송할 땐 mitt
+
+    - 부모의 부모로 데이터 전달할 때
+        1) custom event를 n번 사용 -> 너무 코드가 길어짐
+        2) mitt 라이브러리 사용
+            - 여러 depth 차이 나는 컴포넌트 간, 형제 컴포넌트 간 데이터 전송
+
+    - mitt 설치 및 세팅
+        - npm install mitt
+        - main.js 내에 아래 코드 작성
+            import mitt from 'mitt'
+            let emitter = mitt();
+            let app = createApp(App); // 아래에 원래 작성되어 있던 createApp(App) 부분은 app 변수로 대체
+            app.config.globalProperties.emitter = emitter; // 자주 쓰는 라이브러리는 이런 식으로 등록하면 모든 컴포넌트에서 사용가능
+
+
+    - mitt 사용법
+        1) 이벤트 발사
+            - this.emitter.emit('이벤트명', 파라미터);
+        2) 이벤트 수신
+            - this.emitter.on('이벤트명', (파라미터) => {함수 내용});
+            - mounted() {} 안에 작성하는 것이 일반적
+
+    - mitt는 많이 쓰면 관리가 힘들어짐
+        - 대체품 : Vuex
