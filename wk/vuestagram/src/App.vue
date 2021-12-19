@@ -1,0 +1,186 @@
+<template>
+<div class="header">
+    <ul class="header-button-left">
+        <li @click="cancel">Cancel</li>
+    </ul>
+    <ul class="header-button-right">
+        <li v-if="step == 1" @click="next">Next</li>
+        <li v-if="step == 2" @click="publish">발행</li>
+    </ul>
+    <img src="./assets/logo.png" class="logo" />
+</div>
+
+<Container @textSend="resText = $event" :인스타데이터="인스타데이터" :step="step" :imageUrl="imageUrl" />
+<button @click="more">더보기</button>
+<div class="footer">
+    <ul class="footer-button-plus">
+        <input @change="upload" accept="image/*" type="file" id="file" class="inputfile" />
+        <label for="file" class="input-plus">+</label>
+    </ul>
+</div>
+
+<!-- <div v-if="seen == 0">내용0</div>
+<div v-if="seen == 1">내용1</div>
+<div v-if="seen == 2">내용2</div>
+<button @click="seenChange(0)">버튼0</button>
+<button @click="seenChange(1)">버튼1</button>
+<button @click="seenChange(2)">버튼2</button> -->
+</template>
+
+<script>
+import InstaData from './assets/instaData.js'
+import Container from './components/Container.vue'
+import axios from 'axios'
+
+export default {
+    name: 'App',
+    data() {
+        return {
+            인스타데이터: InstaData,
+            cnt: 0,
+            step: 0,
+            imageUrl: "",
+            resText: "",
+            //seen: 0,
+        }
+    },
+    methods: {
+        more() {
+            axios.get(`https://codingapple1.github.io/vue/more${this.cnt}.json`)
+                .then(res => {
+                    console.log(res.data);
+                    this.인스타데이터.push(res.data);
+                    this.cnt++;
+                }).catch(err => {
+                    console.error(err);
+                });
+
+        },
+        upload(e) {
+            let 파일 = e.target.files;
+            // fileReader(), URL.createObjectURL() 
+            //파일[0].type -> 파일체크가능
+            this.imageUrl = URL.createObjectURL(파일[0]);
+            this.step = 1;
+
+        },
+        next() {
+            this.step++;
+        },
+        cancel() {
+            this.step = 0;
+        },
+        publish() {
+            var myPost = {
+                name: "brucee",
+                userImage: "https://placeimg.com/100/100/arch",
+                postImage: this.imageUrl,
+                likes: 0,
+                date: "dec 20",
+                liked: false,
+                content: this.resText,
+                filter: "perpetua"
+            }
+            this.인스타데이터.unshift(myPost);
+            this.cancel();
+        },
+        // seenChange(btnNum){
+        //   this.seen = btnNum;
+        // }
+    },
+    components: {
+        Container,
+
+    }
+}
+</script>
+
+<style>
+body {
+    margin: 0;
+}
+
+ul {
+    padding: 5px;
+    list-style-type: none;
+}
+
+.logo {
+    width: 22px;
+    margin: auto;
+    display: block;
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 13px;
+}
+
+.header {
+    width: 100%;
+    height: 40px;
+    background-color: white;
+    padding-bottom: 8px;
+    position: sticky;
+    top: 0;
+}
+
+.header-button-left {
+    color: skyblue;
+    float: left;
+    width: 50px;
+    padding-left: 20px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.header-button-right {
+    color: skyblue;
+    float: right;
+    width: 50px;
+    cursor: pointer;
+    margin-top: 10px;
+}
+
+.footer {
+    width: 100%;
+    position: sticky;
+    bottom: 0;
+    padding-bottom: 10px;
+    background-color: white;
+}
+
+.footer-button-plus {
+    width: 80px;
+    margin: auto;
+    text-align: center;
+    cursor: pointer;
+    font-size: 24px;
+    padding-top: 12px;
+}
+
+.sample-box {
+    width: 100%;
+    height: 600px;
+    background-color: bisque;
+}
+
+.inputfile {
+    display: none;
+}
+
+.input-plus {
+    cursor: pointer;
+}
+
+#app {
+    box-sizing: border-box;
+    font-family: "consolas";
+    margin-top: 60px;
+    width: 100%;
+    max-width: 460px;
+    margin: auto;
+    position: relative;
+    border-right: 1px solid #eee;
+    border-left: 1px solid #eee;
+}
+</style>
