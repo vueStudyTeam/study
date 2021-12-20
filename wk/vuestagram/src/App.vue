@@ -10,7 +10,7 @@
     <img src="./assets/logo.png" class="logo" />
 </div>
 
-<Container @textSend="resText = $event" :인스타데이터="인스타데이터" :step="step" :imageUrl="imageUrl" />
+<Container @textSend="resText = $event" :인스타데이터="인스타데이터" :step="step" :imageUrl="imageUrl" :sfilter ="sfilter" />
 <button @click="more">더보기</button>
 <div class="footer">
     <ul class="footer-button-plus">
@@ -41,8 +41,16 @@ export default {
             step: 0,
             imageUrl: "",
             resText: "",
+            sfilter:"",
             //seen: 0,
         }
+    },
+    mounted() {
+        this.emitter.on('sendFilter',(a)=>{
+            // console.log(a);
+            this.sfilter = a;
+
+        });
     },
     methods: {
         more() {
@@ -79,7 +87,7 @@ export default {
                 date: "dec 20",
                 liked: false,
                 content: this.resText,
-                filter: "perpetua"
+                filter: this.sfilter
             }
             this.인스타데이터.unshift(myPost);
             this.cancel();

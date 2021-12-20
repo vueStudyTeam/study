@@ -1,17 +1,18 @@
 <template>
 <div v-if="step == 0">
     <div v-for="data in 인스타데이터" :key="data">
-        <Post :인스타데이터="data" />
+        <Post :인스타데이터="data" :sfilter="sfilter" />
     </div>
 </div>
 
 <div v-if="step == 1">
     <!-- 필터선택페이지 -->
-    <div class="upload-image" :style="{backgroundImage : `url(${imageUrl})`}"></div>
+    <div :class="sfilter" class="upload-image" :style="{backgroundImage : `url(${imageUrl})`}"></div>
     <div class="filters">
         <FilterBox :imageUrl="imageUrl" :filter="filter" v-for="filter in filters" :key="filter">
             <!-- slot 태그에 박힘 -->
             <!-- named slot 사용법  <slot name = "a"></slot> <template v-slot :a> </template> html도 가능!!-->
+            <!-- slot props: 자식->부모 <slot :name ="name">내용</slot> <template v-slot : default="name"></template> -->
             {{filter}}
         </FilterBox>
     </div>
@@ -19,7 +20,7 @@
 
 <!-- 글작성페이지 -->
 <div v-if="step == 2">
-    <div class="upload-image" :style="{backgroundImage : `url(${imageUrl})`}"></div>
+    <div :class="sfilter" class="upload-image" :style="{backgroundImage : `url(${imageUrl})`}"></div>
     <div class="write">
         <textarea class="write-box" @input="$emit('textSend',$event.target.value)">write!</textarea>
     </div>
@@ -35,6 +36,7 @@ export default {
         인스타데이터: Array,
         step: Number,
         imageUrl: String,
+        sfilter : String,
     },
     data() {
         return {
