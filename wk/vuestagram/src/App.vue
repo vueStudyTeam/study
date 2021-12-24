@@ -10,7 +10,7 @@
     <img src="./assets/logo.png" class="logo" />
 </div>
 
-<Container @textSend="resText = $event" :인스타데이터="인스타데이터" :step="step" :imageUrl="imageUrl" :sfilter ="sfilter" />
+<Container @textSend="resText = $event" :인스타데이터="인스타데이터" :step="step" :imageUrl="imageUrl" :sfilter="sfilter" />
 <button @click="more">더보기</button>
 <div class="footer">
     <ul class="footer-button-plus">
@@ -19,6 +19,23 @@
     </ul>
 </div>
 
+<h4>안녕 {{$store.state.name}}</h4>
+<h4>니나이 {{$store.state.age}}</h4>
+<!-- vuex 국룰 컴포넌트 안에서 직접 수정하기 금지 -->
+<!-- <button @click ="$store.state.name = 'park'"> 버튼</button> -->
+<!-- store.js 에 데이터 수정 요청하기 -->
+<button @click="$store.commit('이름변경')"> 이름변경버튼</button>
+<button @click="plusAge(2)"> 나이증가버튼</button>
+
+<p>{{ $store.state.more }}</p>
+<button @click="$store.dispatch('getData')"> 더보기요청버튼</button>
+<p>{{now2 }} {{카운터 }}</p>
+
+<p>{{name}}</p>
+<p>{{age}}</p>
+<p>{{likes}}</p>
+<button @click ="카운터++"> 렌더링요청버튼</button>
+<p>{{내이름}}</p>
 <!-- <div v-if="seen == 0">내용0</div>
 <div v-if="seen == 1">내용1</div>
 <div v-if="seen == 2">내용2</div>
@@ -31,6 +48,7 @@
 import InstaData from './assets/instaData.js'
 import Container from './components/Container.vue'
 import axios from 'axios'
+import {mapMutations, mapState} from 'vuex'
 
 export default {
     name: 'App',
@@ -41,18 +59,35 @@ export default {
             step: 0,
             imageUrl: "",
             resText: "",
-            sfilter:"",
+            sfilter: "",
+            카운터: 0,
             //seen: 0,
         }
     },
     mounted() {
-        this.emitter.on('sendFilter',(a)=>{
+        this.emitter.on('sendFilter', (a) => {
             // console.log(a);
             this.sfilter = a;
 
         });
     },
+    //첫 로드시 한번만 호출됨. 결과 저장용 함수. state 내용을 짧게 쓸수있다. ->setter,getter 느낌
+    computed: {
+        name(){
+            return this.$store.state.name;
+        },
+        //한방에
+        ...mapState(['name', 'age', 'likes']),
+        //이름짓고싶을때
+        ...mapState({내이름: "name"}),
+
+    },
     methods: {
+        //뮤테이션 함수 쉽게
+        ...mapMutations(['setMore','plusAge']),
+        now() {
+            return new Date();
+        },
         more() {
             axios.get(`https://codingapple1.github.io/vue/more${this.cnt}.json`)
                 .then(res => {
