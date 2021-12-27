@@ -19,12 +19,12 @@
     </ul>
 </div>
 
-<h4>안녕 {{$store.state.name}}</h4>
-<h4>니나이 {{$store.state.age}}</h4>
+<!-- <h4>안녕 {{$store.state.name}}</h4>
+<h4>니나이 {{$store.state.age}}</h4> -->
 <!-- vuex 국룰 컴포넌트 안에서 직접 수정하기 금지 -->
 <!-- <button @click ="$store.state.name = 'park'"> 버튼</button> -->
 <!-- store.js 에 데이터 수정 요청하기 -->
-<button @click="$store.commit('이름변경')"> 이름변경버튼</button>
+<!-- <button @click="$store.commit('이름변경')"> 이름변경버튼</button>
 <button @click="plusAge(2)"> 나이증가버튼</button>
 
 <p>{{ $store.state.more }}</p>
@@ -35,7 +35,7 @@
 <p>{{age}}</p>
 <p>{{likes}}</p>
 <button @click ="카운터++"> 렌더링요청버튼</button>
-<p>{{내이름}}</p>
+<p>{{내이름}}</p> -->
 <!-- <div v-if="seen == 0">내용0</div>
 <div v-if="seen == 1">내용1</div>
 <div v-if="seen == 2">내용2</div>
@@ -56,7 +56,7 @@ export default {
         return {
             인스타데이터: InstaData,
             cnt: 0,
-            step: 0,
+            step: 3,
             imageUrl: "",
             resText: "",
             sfilter: "",
