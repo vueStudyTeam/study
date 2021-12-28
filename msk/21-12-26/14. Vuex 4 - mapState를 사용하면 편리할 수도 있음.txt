@@ -1,0 +1,29 @@
+14. Vuex 4 - mapState를 사용하면 편리할 수도 있음
+
+    - App 내 methods vs computed
+        - methods나 computed 모두 메소드를 저장하는 객체
+        - methods : 호출할 때마다 함수가 실행됨
+        - computed : 처음 로드되었을 때 함수가 실행되고 그 때 계산된 값을 저장했다가 반환. 필요할 때만 실행됨
+            - 계산 결과 저장용 함수들을 넣어두면 됨
+            - computed 함수에서는 return 값이 필수
+            - computed 함수를 실행시킬 때는 () 없이 함수명만 입력하여 사용
+
+    - 자주 꺼내 쓰는 state를 computed 내에 저장
+        함수명() { return this.$store.state.변수명; }
+
+    - 여러 개의 state를 computed 내에 바인딩하는 방법
+        import {mapState} from 'vuex'
+
+        computed : { ...mapState([변수명, 변수명])}
+        또는
+        computed : { ...mapState({신규변수명 : state변수명})}
+            - 이런 식으로 정의해서 state 내의 변수명을 다른 변수명으로 받을 수 있음
+
+    - mutations 함수도 가져오기
+        import {mapMutations} from 'vuex'
+
+        computed : { ...mapMutations([함수명, 함수명])}
+
+    - mapActions도 있음
+        - mapActions는 computed가 아니라 methods에 정의되어야 함
+        - 참고 : https://stackoverflow.com/questions/54117875/mapped-vuex-function-is-not-a-function-but-still-loads

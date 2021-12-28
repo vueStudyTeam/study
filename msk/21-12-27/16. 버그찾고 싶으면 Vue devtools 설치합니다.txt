@@ -1,0 +1,4 @@
+16. 버그찾고 싶으면 Vue devtools 설치합니다
+
+    - 크롬 확장기능 Vue.js devtools
+    

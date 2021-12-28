@@ -1,0 +1,27 @@
+17. Composition API 사용법 (팔로워 페이지 만들기)
+
+    - 프로젝트 구조가 복잡해지면 단점
+        - 특정 데이터와 관련된 기능을 찾기 위해 멀리 여러 곳을 이동해야 함
+        - Vue 3부터 제공하는 기능 : Composition API
+    
+    - Composition API
+        - 관련 기능을 한 곳에 몰아 넣는 방식으로 개발
+
+        - ref()
+            - 아래와 같이 데이터를 저장해주는 함수
+            - return { 데이터이름 } 형태로 반환된 값은 html에서 데이터바인딩 가능
+            
+            var 데이터이름 = ref(데이터);
+            return { 데이터이름 }
+
+            - ref(데이터) 형태로 만든 변수에 값을 저장하려면 "데이터이름 = 값" 형태가 아니라 "데이터이름.value = 값" 형태로 저장해야 함
+                - Object 자료형이기 때문에
+
+        - 라이프사이클 훅
+            - "on" + 기존 라이프사이클 함수명(ex: onMounted)을 vue에서 import
+            - import한 함수명 파라미터에 익명함수 전달해서 작성
+                import {onMounted} from 'vue'
+                ...
+                onMounted(()=> {함수내용;});
+
+            - created는 별도의 onCreated가 없음 (setup 함수가 created 함수 역할)
