@@ -1,12 +1,12 @@
 <template>
     <div>
         <div v-if='step == 0'>
-            <Post  :post="items" v-for="(items, i) in postingData" :key='i'/>
+            <Post  :post="items" :index="i" v-for="(items, i) in postingData" :key='i'/>
         </div>
 
         <div v-if='step == 1'>
             <!-- 필터선택페이지 -->
-        <div class="upload-image" :style="`background-image:url(${image})`"></div>
+        <div :class="`${filter} upload-image`" :style="`background-image:url(${image})`"></div>
             <div class="filters">
                 <FilterBox v-for="(filter, i) in filters" :key='i' :filter='filter' :image='image'>
                     {{filter}}    
@@ -22,12 +22,17 @@
                 <textarea @input="$emit('write', $event.target.value)" class="write-box">write!</textarea>
             </div>
         </div>
+
+        <div v-if='step == 3'>
+            <MyPage/>
+        </div>
     </div>    
 </template>
 
 <script>
 import Post from './Post.vue'
 import FilterBox from './FilterBox.vue'
+import MyPage from './MyPage.vue'
 export default {
     name: 'Container',
     data() {
@@ -40,11 +45,13 @@ export default {
     props: {
         step:Number,
         postingData:Array,
-        image:String
+        image:String,
+        filter:String
     },
     components : {
         Post : Post,
-        FilterBox : FilterBox
+        FilterBox : FilterBox,
+        MyPage : MyPage
     },
     mounted(){
         console.log('data bind :: ',this.postingData)

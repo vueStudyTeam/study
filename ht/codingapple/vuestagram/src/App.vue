@@ -9,9 +9,10 @@
     </ul>
     <img src="./assets/logo.png" class="logo" />
   </div>
-
-  <Container @write="content = $event" :step='step' :postingData='postingData' :image = 'image'/>
-  <button @click="more">더 보기</button>
+  <button @click="$store.commit('changeName')">뷰액스로 바꾸기</button>
+   <h4>{{$store.state.testData}}</h4> 
+  <Container @write="content = $event" :step='step' :postingData='postingData' :image = 'image' :filter='filter'/>
+  <button @click="$store.dispatch('getMoreData')">더 보기</button>
 
 <!--FileReader() , URL.createObjectURL() 알아보기. -->
   <div class="footer">
@@ -23,26 +24,35 @@
 </template>
 <script>
 import Container from './components/Container.vue'
-import PostingData from './data/PostingData'
+//import PostingData from './data/PostingData'
 import axios from 'axios'
+import {mapMutations, mapState} from 'vuex'
 
 export default {
   name: 'App',
   data() {
     return {
-      step : 0,
-      postingData : PostingData,
+      step : 3,
+      postingData : [],
       postIndex : 0,
       image : '',
       content : '',
+      filter : '',
     }
   },
   mounted(){
-    this.emitter.on('eventEmit', (data)=>{
-      console.log(data)
-    })
+    this.emitter.on('selectFilter', (data)=>{
+      this.filter = data;
+    });
+    this.postingData = this.$store.state.postingData;
+  },
+  //처음 랜더링 될 때의 데이터 값을 간직함.
+  computed : {
+    ...mapState(['postingData'])
   },
   methods: {
+    //vuex 안의 메서드를 불러와 등록 가능
+    ...mapMutations(['setMore']),
     publish(){
       var item = {
       name: "Kim Hyun",
@@ -57,7 +67,7 @@ export default {
       this.postingData.unshift(item);
       this.step = 0;
     },
-    more(){
+    more(){ 
       var _this = this;
       axios.get('https://codingapple1.github.io/vue/more'+_this.postIndex+'.json')
       .then(function(result){

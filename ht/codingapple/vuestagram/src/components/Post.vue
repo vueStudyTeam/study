@@ -4,7 +4,7 @@
       <div class="profile" :style="{backgroundImage: `url(${this.post.userImage})`}"></div>
       <span class="profile-name">{{this.post.name}}</span>
     </div>
-    <div class="post-body" :style="{backgroundImage : `url(${this.post.postImage})`}"></div>
+    <div v-on:click='changeLike' class="post-body" :style="{backgroundImage : `url(${this.post.postImage})`}"></div>
     <div class="post-content">
       <p>{{this.post.likes}} Likes</p>
       <p><strong>{{this.post.name}}</strong> {{this.post.content}}</p>
@@ -16,8 +16,15 @@
 <script>
 export default {
     props : {
-        post:Object
-    }
+        post:Object,
+        index:Number
+    },
+    methods: {
+      changeLike(){
+        console.log('click',this.$store);
+        this.$store.commit('changeLikes',this.index);
+      }
+    },
 }
 </script>
 

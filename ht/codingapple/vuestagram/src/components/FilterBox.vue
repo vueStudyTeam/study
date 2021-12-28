@@ -1,7 +1,6 @@
 <template>
-    <div :class="`${filter} filter-item`" :style="`background-image:url(${this.image})`">
+    <div v-on:click='selectFilter' :class="`${filter} filter-item`" :style="`background-image:url(${this.image})`">
         <slot></slot>
-        <button v-on:click='fire'>button</button>
     </div> 
 </template>
 
@@ -13,8 +12,8 @@ export default {
         filter : String
     },
     methods: {
-        fire(){
-            this.emitter.emit('eventEmit','testData');
+        selectFilter(){
+            this.emitter.emit('selectFilter',this.filter);
         }
     },
 }
