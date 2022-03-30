@@ -22,6 +22,10 @@
                 <textarea @input="editContent" class="write-box">Write!</textarea>
             </div>
         </div>
+
+        <div v-if="step == 3">
+            <MyPage/>
+        </div>
     </div>
 </template>
 
@@ -29,6 +33,7 @@
 import Post from "./Post"
 import FilterBox from "./FilterBox";
 import filters from "../assets/instaFilters";
+import MyPage from "./MyPage";
 
 export default {
     name: 'Container',
@@ -45,7 +50,8 @@ export default {
     },
     components : {
         Post,
-        FilterBox
+        FilterBox,
+        MyPage
     },
     methods : {
         editContent(e) {

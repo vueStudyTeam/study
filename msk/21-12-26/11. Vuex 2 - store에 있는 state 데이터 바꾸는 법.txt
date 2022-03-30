@@ -1,0 +1,12 @@
+11. Vuex 2 - store에 있는 state 데이터 바꾸는 법
+
+    - store 내 state를 변경하기 위한 방법
+        - store 내 mutations 객체에 함수형으로 state 변경 함수를 정의
+        - 컴포넌트에서는 $store.commit(state 변경 함수명) 형태로 호출
+
+    - 장점
+        - state 변경은 store.js에만 정의
+        - state에 문제가 있을 때 store.js만 확인하면 됨
+
+    - 데이터를 전달하고 싶을 때는 $store.commit(함수명, 파라미터) 형태로 전달
+        - store의 mutations 쪽에 정의된 함수에서는 첫 번째 파라미터는 state, 두 번째 파라미터부터 일치시키면 됨

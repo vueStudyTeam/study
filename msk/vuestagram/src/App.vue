@@ -12,12 +12,12 @@
     </div>
 
     <Container 
-      :postData="postData"
+      :postData="posts"
       :step="step" 
       :uploadImageUrl="uploadImageUrl"
       :uploadFilter="uploadFilter"
       @edit="this.uploadContent = $event"/>
-    <button v-if="moreIndex < 1 && step == 0" @click="viewMore">View More</button>
+    <button v-if="moreIndex < 1 && step == 0" @click="viewMore()">View More</button>
 
     <div class="footer">
       <ul class="footer-button-plus">
@@ -30,16 +30,13 @@
 
 <script>
 import Container from "./components/Container";
-import postData from "./assets/postData";
-import axios from 'axios';
+import {mapState, mapActions} from 'vuex';
 
 export default {
   name: 'App',
   data() {
     return {
-      postData,
-      moreIndex: 0,
-      step: 0,
+      step: 3,
       uploadImageUrl : '',
       uploadContent: '',
       uploadFilter: ''
@@ -53,16 +50,11 @@ export default {
       this.uploadFilter = filter;
     });
   }, 
+  computed: {
+    ...mapState(['posts', 'moreIndex'])
+  },
   methods: {
-    viewMore() {
-      var viewMoreUrl = `https://codingapple1.github.io/vue/more${this.moreIndex}.json`;
-      axios.get(viewMoreUrl).then((result) => {
-          var morePost = result.data;
-          this.postData = [...this.postData, morePost];
-        });
-      
-      this.moreIndex++;
-    },
+    ...mapActions(['viewMore']),
     uploadImage(e) {
       var file = e.target.files[0];
       if (file.type.indexOf("image/") > -1) {

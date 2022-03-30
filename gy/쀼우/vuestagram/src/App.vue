@@ -10,10 +10,8 @@
     <img src="./assets/logo.png" class="logo" />
   </div>
 
-  <Container :이미지= "이미지" 게시물="게시물" :step="step" />
-<Container @write="작성한글 = $event" /> 
-
-  <button @click = "more">더보기</button>
+  <Container @발행="content = $event" :step='step' :게시물='게시물' :이미지= '이미지'/>
+  <button @click="more">더 보기</button>
 
   <div class="footer">
     <ul class="footer-button-plus">
@@ -41,12 +39,10 @@ axios.post()
 export default {
   name: "App",
   data(){
-    return {
-      step : 0,
-      게시물 : postdata,
-      이미지 : '',
-     작성한글 : '',
-    }
+  return {
+    step : 3
+  }
+
   },
 
   components: {
@@ -88,7 +84,7 @@ export default {
 </script>
 
 <style>
-body {
+ body {
   margin: 0;
 }
 ul {
@@ -130,7 +126,7 @@ ul {
 .footer {
   width: 100%;
   position: sticky;
-  bottom: 0;  
+  bottom: 0;
   padding-bottom: 10px;
   background-color: white;
 }
@@ -164,4 +160,5 @@ ul {
   border-right: 1px solid #eee;
   border-left: 1px solid #eee;
 }
+
 </style>
