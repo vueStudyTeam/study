@@ -1,16 +1,15 @@
 <template>
-  <SampleComponent />
+  <div>
+    <router-view></router-view>
+  </div>
 </template>
 
 <script>
-import SampleComponent from './components/SampleComponent.vue'
 //import axios from 'axios';
 
 export default {
   name: 'App',
-  components: {
-    SampleComponent : SampleComponent
-  },
+  
   mounted() {
     // axios.get('https://test.com').then((data)=>{
     //     console.log(data);

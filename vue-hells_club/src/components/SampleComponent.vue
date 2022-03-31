@@ -19,7 +19,7 @@ export default {
         console.log('from component use store 3 : ',store);
         console.log('from component use store 4 : ',this.$axios);
 
-        //전역 객체 (main.js 에 정의)에 등록된 axios
+        //전역 객체 (main.js 에 정의)에 등록된 axios 호출
         // this.$axios.get('https://test1.com').then((data)=>{
         //     console.log(data);
         // })
