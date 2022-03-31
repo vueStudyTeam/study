@@ -4,7 +4,7 @@
 
 <script>
 import SampleComponent from './components/SampleComponent.vue'
-import axios from 'axios';
+//import axios from 'axios';
 
 export default {
   name: 'App',
